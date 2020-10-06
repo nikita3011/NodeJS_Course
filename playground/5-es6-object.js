@@ -23,5 +23,12 @@ const product={
 // const label=product.label
 // const stock=product.stock
 
-const {label:productLabel,stock,rating}=product
-console.log(productLabel,stock,rating)
+// const {label:productLabel,stock,rating=5}=product
+// console.log(productLabel,stock,rating)
+
+
+//Destructing object
+const transaction=(type,{label,stock = 0 } = {} )=>{
+    console.log(type,label,stock)
+}
+transaction('Order',product)
