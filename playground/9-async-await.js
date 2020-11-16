@@ -1,5 +1,5 @@
 const doWork = async() =>{
-    return 'nikita'
+    return 
 }
 
 console.log(doWork())
