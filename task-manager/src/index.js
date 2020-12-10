@@ -8,44 +8,6 @@ const app = express()
 const port = process.env.PORT || 3000
 
 
-//----------File upload------
-
-const multer = require('multer')
-const upload = multer ({
-    dest: 'images',
-    limits:{
-        fileSize: 1000000
-    },
-    fileFilter(req,file,cb) {
-        // (!file.originalname.endsWith('.pdf'))
-        if(!file.originalname.match(/\.(doc|docx)$/)){
-            cb('Please upload a word document')
-        }
-        return cb(undefined, true)
-
-        // cb(new Error('File must be a pdf'))
-        // cb(undefined,true)
-        // cb(undefined,false)
-    }
-})
- 
-//Using middleware function
-// const errorMiddleware = (req,res,next) =>{
-//     throw new Error ('From my middleware')
-// }
-
-// app.post('/upload',errorMiddleware , (req, res) => {
-//     res.send()
-// }, (error, req, res,next) => {
-//     res.status(400).send({error:error.message})
-// })
-
-app.post('/upload', upload.single('upload'), (req, res) => {
-    res.send()
-},(error,req,res,next) => {
-    res.status(400).send(error)
-})
-
 app.use(express.json())
 app.use(userRouter)
 app.use(taskRouter)
@@ -53,6 +15,46 @@ app.use(taskRouter)
 app.listen(port, () => {
     console.log('Server is up on port', +port)
 })
+
+
+//----------File upload and set up of multer------
+
+// const multer = require('multer')
+// const upload = multer ({
+//     dest: 'images',
+//     limits:{
+//         fileSize: 1000000
+//     },
+//     fileFilter(req,file,cb) {
+//         // (!file.originalname.endsWith('.pdf'))
+//         if(!file.originalname.match(/\.(doc|docx)$/)){
+//             cb('Please upload a word document')
+//         }
+//         return cb(undefined, true)
+
+//         // cb(new Error('File must be a pdf'))
+//         // cb(undefined,true)
+//         // cb(undefined,false)
+//     }
+// })
+ 
+// //Using middleware function
+// // const errorMiddleware = (req,res,next) =>{
+// //     throw new Error ('From my middleware')
+// // }
+
+// // app.post('/upload',errorMiddleware , (req, res) => {
+// //     res.send()
+// // }, (error, req, res,next) => {
+// //     res.status(400).send({error:error.message})
+// // })
+
+// app.post('/upload', upload.single('upload'), (req, res) => {
+//     res.send()
+// },(error,req,res,next) => {
+//     res.status(400).send(error)
+// })
+
 
 
 //-------How to use middleware and setup our own authenticated middleware-----
